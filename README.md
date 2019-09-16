@@ -106,6 +106,9 @@ The repository uses a submodule for the serial protocol.
 Clone with submodules: ´git clone --recurse-submodules´
 Or afterwards: ´git submodule update --init --recursive´
 
+git clone --recurse-submodules https://github.com/sbausis/bipropellant-hoverboard-firmware.git
+cd bipropellant-hoverboard-firmware && git submodule update --init --recursive
+
 [Take a look at our wiki](https://github.com/bipropellant/hoverboard-firmware/wiki/Building-and-flashing)
 
 
