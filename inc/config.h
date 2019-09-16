@@ -13,6 +13,7 @@
 
 // thoery says this is the only thing you need to change....
 // Can also be preset from platformio.ini when using platform.io build environment
+#define CONTROL_TYPE USART2_CONTROLLED
 #ifndef CONTROL_TYPE
   #define CONTROL_TYPE HOVERBOARD_WITH_SOFTWARE_SERIAL_B2_C9
 #endif
@@ -214,10 +215,10 @@
 
 // Battery voltage calibration: connect power source. see <How to calibrate>. write value nr 5 to BAT_CALIB_ADC. make and flash firmware. then you can verify voltage on value 6 (devide it by 100.0 to get calibrated voltage).
 #ifndef BAT_CALIB_REAL_VOLTAGE
-  #define BAT_CALIB_REAL_VOLTAGE        43.0       // input voltage measured by multimeter
+  #define BAT_CALIB_REAL_VOLTAGE        41.2       // input voltage measured by multimeter
 #endif
 #ifndef BAT_CALIB_ADC
-  #define BAT_CALIB_ADC                 1704       // adc-value measured by mainboard (value nr 4 on UART debug output)
+  #define BAT_CALIB_ADC                 1594       // adc-value measured by mainboard (value nr 4 on UART debug output)
 #endif
 
 #ifndef BAT_NUMBER_OF_CELLS
@@ -247,16 +248,16 @@
 
 // Board overheat detection: the sensor is inside the STM/GD chip. it is very inaccurate without calibration (up to 45°C). so only enable this funcion after calibration! let your board cool down. see <How to calibrate>. get the real temp of the chip by thermo cam or another temp-sensor taped on top of the chip and write it to TEMP_CAL_LOW_DEG_C. write debug value 8 to TEMP_CAL_LOW_ADC. drive around to warm up the board. it should be at least 20°C warmer. repeat it for the HIGH-values. enable warning and/or poweroff and make and flash firmware.
 #ifndef TEMP_CAL_LOW_ADC
-  #define TEMP_CAL_LOW_ADC        1655      // temperature 1: ADC value
+  #define TEMP_CAL_LOW_ADC        1701      // temperature 1: ADC value
 #endif
 #ifndef TEMP_CAL_LOW_DEG_C
-  #define TEMP_CAL_LOW_DEG_C      35.8      // temperature 1: measured temperature [°C]
+  #define TEMP_CAL_LOW_DEG_C      23.6      // temperature 1: measured temperature [°C]
 #endif
 #ifndef TEMP_CAL_HIGH_ADC
-  #define TEMP_CAL_HIGH_ADC       1588      // temperature 2: ADC value
+  #define TEMP_CAL_HIGH_ADC       1587      // temperature 2: ADC value
 #endif
 #ifndef TEMP_CAL_HIGH_DEG_C
-  #define TEMP_CAL_HIGH_DEG_C     48.9      // temperature 2: measured temperature [°C]
+  #define TEMP_CAL_HIGH_DEG_C     44.5      // temperature 2: measured temperature [°C]
 #endif
 #ifndef TEMP_WARNING_ENABLE
   #define TEMP_WARNING_ENABLE     0         // to beep or not to beep, 1 or 0, DO NOT ACTIVITE WITHOUT CALIBRATION!
@@ -277,10 +278,12 @@
 
 // ############################### SERIAL DEBUG ###############################
 
-//#define DEBUG_SERIAL_USART3         // right sensor board cable, disable if I2C (nunchuk) is used!
+#define DEBUG_BAUD 115200
+//#define DEBUG_SERIAL_USART2         // right sensor board cable, disable if I2C (nunchuk) is used!
+#define DEBUG_SERIAL_USART3         // right sensor board cable, disable if I2C (nunchuk) is used!
 //#define DEBUG_SERIAL_SENSOR         // send to USART3 sensor board, without framing, at the CONTROL_SENSOR_BAUD rate
 //#define DEBUG_SERIAL_SERVOTERM
-//#define DEBUG_SERIAL_ASCII          // "1:345 2:1337 3:0 4:0 5:0 6:0 7:0 8:0\r\n"
+#define DEBUG_SERIAL_ASCII          // "1:345 2:1337 3:0 4:0 5:0 6:0 7:0 8:0\r\n"
 
 // ############################### INPUT ###############################
 
@@ -366,6 +369,8 @@
 //#define CONTROL_NUNCHUCK            // use nunchuck as input. disable DEBUG_SERIAL_USART3!
 
 
+//#define WHEEL_SIZE_CM  16.51
+//#define WHEEL_SIZE_INCHES (WHEEL_SIZE_CM / 2.54)
 //#define WHEEL_SIZE_INCHES 8.5 - set to your wheelsize to override the default 6.5
 
 
