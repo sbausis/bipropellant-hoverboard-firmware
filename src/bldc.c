@@ -406,9 +406,12 @@ void readADCs() {
   // some parts of main use this directly.
   memcpy((void *)&adc_buffer, (void *)buf, sizeof(adc_buffer));
 
-  batteryVoltage = batteryVoltage * 0.99 + ((float)buf->batt1 * ((float)BAT_CALIB_REAL_VOLTAGE / (float)BAT_CALIB_ADC)) * 0.01;
+  if (batteryVoltage == 0) batteryVoltage = ((float)buf->batt1 * ((float)BAT_CALIB_REAL_VOLTAGE / (float)BAT_CALIB_ADC));
+  else batteryVoltage = batteryVoltage * 0.99 + ((float)buf->batt1 * ((float)BAT_CALIB_REAL_VOLTAGE / (float)BAT_CALIB_ADC)) * 0.01;
+  
   electrical_measurements.batteryVoltage = batteryVoltage;
-
+  electrical_measurements.bat_raw = (float)buf->batt1;
+  
   float dclAmps = (float)ABS(buf->dcl - adc_buffers.offsetdcl) * MOTOR_AMP_CONV_DC_AMP;
   electrical_measurements.motors[0].dcAmps = dclAmps;
   electrical_measurements.motors[0].dcAmpsx100 = (int)(dclAmps*100.0);

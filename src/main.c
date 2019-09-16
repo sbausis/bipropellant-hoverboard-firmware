@@ -770,7 +770,8 @@ int main(void) {
 
     if ((debug_counter++) % 100 == 0) {
       // ####### CALC BOARD TEMPERATURE #######
-      board_temp_adc_filtered = board_temp_adc_filtered * 0.99 + (float)adc_buffer.temp * 0.01;
+	  if (board_temp_adc_filtered == 0) board_temp_adc_filtered = (float)adc_buffer.temp;
+      else board_temp_adc_filtered = board_temp_adc_filtered * 0.99 + (float)adc_buffer.temp * 0.01;
       board_temp_deg_c = ((float)TEMP_CAL_HIGH_DEG_C - (float)TEMP_CAL_LOW_DEG_C) / ((float)TEMP_CAL_HIGH_ADC - (float)TEMP_CAL_LOW_ADC) * (board_temp_adc_filtered - (float)TEMP_CAL_LOW_ADC) + (float)TEMP_CAL_LOW_DEG_C;
 
       electrical_measurements.board_temp_raw = adc_buffer.temp;
