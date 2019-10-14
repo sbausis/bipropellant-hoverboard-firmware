@@ -410,7 +410,7 @@
   #define STEER_COEFFICIENT   0.5  // higher value == stronger. if you do not want any steering, set it to 0.0; 0.0 to 1.0
 #endif
 #ifndef INVERT_R_DIRECTION
-  #define INVERT_R_DIRECTION  1
+  #define INVERT_R_DIRECTION  0
 #endif
 #ifndef INVERT_L_DIRECTION
   #define INVERT_L_DIRECTION  1
